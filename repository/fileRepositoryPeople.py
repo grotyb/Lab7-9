@@ -20,7 +20,10 @@ class FileRepoPeople(InMemoryRepositoryPeople):
         personList = []
         for textLine in textLines:
             textLine = textLine.split(',')
-            id = textLine[0]
+            try:
+                id = int(textLine[0])
+            except:
+                print(f"Database contains a person with an invalid id {textLine[0]}")
             nume  = textLine[1]
             adresa = textLine[2]
             person = Person(id, nume, adresa)
@@ -43,7 +46,7 @@ class FileRepoPeople(InMemoryRepositoryPeople):
         f.close()
     def __parsePersonIntoTextLine(self, person):
         personString = ""
-        personString += person.getID()
+        personString += str(person.getID())
         personString += ","
         personString += person.getName()
         personString += ","

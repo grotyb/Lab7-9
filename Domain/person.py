@@ -18,4 +18,3 @@ class Person:
 
     def getAdress(self):
         return self.__adress
-

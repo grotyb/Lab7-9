@@ -48,7 +48,15 @@ class UI(Menu, UserInput):
             userInput = self._UserInput__citireValoriAditionaleGestiuniEvenimente()
             if userInput == 1:
                 self.__adaugaEveniment()
+            if userInput == 2:
+                self.__stergeEveniment()
 
+    def __stergeEveniment(self):
+        idEventToDelete = UserInput.readIDForDeletionEvent(self)
+        if self.__repositoryEvents.eventDoesExist(idEventToDelete) == True:
+            self.__repositoryEvents.deleteEvent(idEventToDelete)
+        else:
+            print("An event with the specified ID does not exist")
     def __adaugaEveniment(self):
         """
         Functia care gestioneaza adaugarea unui eveniment
@@ -61,7 +69,7 @@ class UI(Menu, UserInput):
         Functia care gestioneaza stergerea unei persoane
         :return:
         """
-        personId = UserInput.readIDForDeletion(self)
+        personId = UserInput.readIDForDeletionPerson(self)
         if self.__repositoryPeople.personDoesExist(personId) == True:
             self.__repositoryPeople.deletePerson(personId)
         else:
@@ -74,7 +82,6 @@ class UI(Menu, UserInput):
         personData = self._UserInput__citireDatePersoana()
         pupil = Person(personData['id'], personData['nume'], personData['adresa'])
         self.__repositoryPeople.addPerson(pupil)
-        #TODO -> Create service where i will add the person instance created above
 
     def showUI(self):
         """
