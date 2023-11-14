@@ -1,25 +1,11 @@
-from repository.validator import Validator
 from Domain.event import Event
 import datetime
 class InMemoryRepositoryEvents:
     def __init__(self):
         self.__eventsList = {}
-        self.__validator = Validator()
 
     def addEvent(self, event):
-        try:
-            eventsList = self.getAllEvents()
-            self.__validator.validateNewEvent(eventsList, event)
-            self.__eventsList[event.getIDEvent()] = event
-            # print(eventsList)
-        except ValueError as ex:
-            print(ex)
-
-    def eventDoesExist(self, idEvent):
-        for id in self.__eventsList:
-            if id == idEvent:
-                return True
-        return False
+        self.__eventsList[event.getIDEvent()] = event
 
     def getAllEvents(self):
         return list(self.__eventsList.values())

@@ -1,15 +1,12 @@
 import datetime
-
 from repository.inMemoryRepositoryEvents import InMemoryRepositoryEvents
 from UTILS.readFileHandler import ReadFromFile
 from Domain.event import Event
-from repository.validator import Validator
 class FileRepoEvents(InMemoryRepositoryEvents):
     def __init__(self, fileName):
         InMemoryRepositoryEvents.__init__(self)
         self.__fileName = fileName
         self.__loadFromFile()
-        self.__validator = Validator()
 
     def __loadFromFile(self):
         textData = ReadFromFile(self.__fileName)

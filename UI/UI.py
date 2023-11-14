@@ -3,7 +3,7 @@ from UI.handleUserInput import UserInput
 from Domain.person import Person
 from Domain.event import Event
 class UI(Menu, UserInput):
-    def __init__(self, repositoryPeople, repositoryEvents):
+    def __init__(self, servicePeople, serviceEvents):
         """
         A class that handles all the UI for the app
         :param repositoryPeople: A repository for performing operations on people
@@ -11,8 +11,8 @@ class UI(Menu, UserInput):
         """
         Menu.__init__(self)
         UserInput.__init__(self)
-        self.__repositoryPeople = repositoryPeople
-        self.__repositoryEvents = repositoryEvents
+        self.__servicePeople = servicePeople
+        self.__serviceEvents = serviceEvents
 
     def __redirectionareInSubmeniuAles(self, submeniu):
         """
@@ -53,35 +53,30 @@ class UI(Menu, UserInput):
 
     def __stergeEveniment(self):
         idEventToDelete = UserInput.readIDForDeletionEvent(self)
-        if self.__repositoryEvents.eventDoesExist(idEventToDelete) == True:
-            self.__repositoryEvents.deleteEvent(idEventToDelete)
-        else:
-            print("An event with the specified ID does not exist")
+        self.__serviceEvents.deleteEvent(idEventToDelete)
+
     def __adaugaEveniment(self):
         """
         Functia care gestioneaza adaugarea unui eveniment
         """
         eventData = self._UserInput__citireDateEveniment()
-        newEvent = Event(eventData['id'], eventData['date'], eventData['description'])
-        self.__repositoryEvents.addEvent(newEvent)
+        self.__serviceEvents.addEvent(eventData['id'], eventData['date'], eventData['description'])
+
     def __stergePersoana(self):
         """
         Functia care gestioneaza stergerea unei persoane
         :return:
         """
         personId = UserInput.readIDForDeletionPerson(self)
-        if self.__repositoryPeople.personDoesExist(personId) == True:
-            self.__repositoryPeople.deletePerson(personId)
-        else:
-            print("A person with the specified ID does not exist")
+        self.__servicePeople.deletePerson(personId)
+
     def __adaugaPersoana(self):
         """
         Functia care gestioneaza adaugarea unei persoane
         :return:
         """
         personData = self._UserInput__citireDatePersoana()
-        pupil = Person(personData['id'], personData['nume'], personData['adresa'])
-        self.__repositoryPeople.addPerson(pupil)
+        self.__servicePeople.addPerson(personData['id'], personData['nume'], personData['adresa'])
 
     def showUI(self):
         """

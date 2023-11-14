@@ -1,13 +1,11 @@
 from repository.inMemoryRepositoryPeople import InMemoryRepositoryPeople
 from Domain.person import Person
 from UTILS.readFileHandler import ReadFromFile
-from repository.validator import Validator
 class FileRepoPeople(InMemoryRepositoryPeople):
     def __init__(self, fileName):
         super().__init__()
         self.__fileName = fileName
         self.__loadFromFile(fileName)
-        self.__validator = Validator()
 
 
     def __loadFromFile(self, fileName):
