@@ -30,3 +30,17 @@ class Event:
         :return:
         """
         return self.__description
+
+    def setDateOnlyEvent(self, year, month, day):
+        self.__data = self.__data.replace(year = year, month = month, day = day)
+
+    def setHourOnly(self, hour, minutes):
+        self.__data = self.__data.replace(hour = hour, minute = minutes)
+
+    def setDescription(self, newDescription):
+        self.__description = newDescription
+
+    # def __eq__(self, other):
+    #     if self.getIDEvent() == other.getIDEvent():
+    #         return True
+    #     return False

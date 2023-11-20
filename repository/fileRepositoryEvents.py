@@ -43,6 +43,17 @@ class FileRepoEvents(InMemoryRepositoryEvents):
         InMemoryRepositoryEvents.deleteEvent(self, eventID)
         self.__loadToFile(self.getAllEvents())
 
+    def modifyEventDate(self, idEvent, year, month, day):
+        super().modifyEventDate(idEvent, year, month, day)
+        self.__loadToFile(self.getAllEvents())
+
+    def modifyEventHour(self,idEvent, hour, minutes):
+        super().modifyEventHour(idEvent, hour, minutes)
+        self.__loadToFile(self.getAllEvents())
+
+    def modifyEventDescription(self, idEvent, newDescription):
+        super().modifyEventDescription(idEvent, newDescription)
+        self.__loadToFile(self.getAllEvents())
     def parseDateIntoString(self, data):
         dateString = ''
         dateString += str(data.day) + '.' + str(data.month) + '.' + str(data.year)

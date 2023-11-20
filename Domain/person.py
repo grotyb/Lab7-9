@@ -18,3 +18,14 @@ class Person:
 
     def getAdress(self):
         return self.__adress
+
+    def setName(self, newName):
+        self.__name = newName
+
+    def setAddress(self, newAddress):
+        self.__adress = newAddress
+
+    # def __eq__(self, other):
+    #     if self.getID() == other.getID():
+    #         return True
+    #     return False

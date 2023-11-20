@@ -13,6 +13,16 @@ class InMemoryRepositoryEvents:
     def deleteEvent(self, eventID):
         del self.__eventsList[eventID]
 
+    def modifyEventDate(self, idEvent, year, month, day):
+        self.__eventsList[idEvent].setDateOnlyEvent(year, month, day)
+
+    def modifyEventHour(self,idEvent, hour, minutes):
+        self.__eventsList[idEvent].setHourOnly(hour, minutes)
+
+    def modifyEventDescription(self, idEvent, newDescription):
+        self.__eventsList[idEvent].setDescription(newDescription)
+
+
     def size(self):
         return len(self.__eventsList)
 

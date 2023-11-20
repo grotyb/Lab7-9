@@ -11,6 +11,8 @@ class Menu:
         print("Apasati tasta 2 pentru Cautari")
         print("Apasati tasta 3 pentru Inscrieri")
         print("Apasati tasta 4 pentru Rapoarte")
+        print("Apasati tasta 5 pentru a adauga un numar dat de studenti(Initializati cu valori aleatorii)")
+        print("Apasati tasta 6 pentru a adauga un numar dat de evenimente(Initializati cu valori aleatorii)")
 
     def ___afisareMeniuGestiuniPersoane(self):
         print("Apasati tasta 1 pentru a adauga o persoana")
@@ -21,3 +23,28 @@ class Menu:
         print("Apasati tasta 1 pentru a adauga un eveniment")
         print("Apasati tasta 2 pentru a sterge un eveniment")
         print("Apasati tasta 3 pentru a modifica un eveniment")
+
+    def afisareMeniuModificarePersoana(self):
+        print("Apasati tasta 1 pentru a modifica numele persoanei")
+        print("Apasati tasta 2 pentru a modifica adresa persoanei")
+
+    def afisareMeniuModificareEveniment(self):
+        print("Apasati tasta 1 pentru a modifica data evenimentului")
+        print("Apasati tasta 2 pentru a modifica ora evenimentului")
+        print("Apasati tasta 3 pentru a modifica descrierea evenimentului")
+
+    def afisareMeniuCautari(self):
+        print("Apasati tasta 1 pentru a cauta o persoana dupa id")
+        print("Apasati tasta 2 pentru a cauta un eveniment dupa id")
+
+    def afisarePersoana(self, persoana):
+        print(persoana.getID(), persoana.getName(), persoana.getAdress())
+
+    def displayEvent(self, event):
+        print(event.getIDEvent(), self.parseDateIntoString(event.getDataEvent()), event.getEventDescription())
+    def parseDateIntoString(self, data):
+        dateString = ''
+        dateString += str(data.day) + '.' + str(data.month) + '.' + str(data.year)
+        dateString += ','
+        dateString += str(data.hour) + ':' + str(data.minute)
+        return dateString

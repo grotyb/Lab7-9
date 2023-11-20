@@ -7,6 +7,17 @@ class FileRepoPeople(InMemoryRepositoryPeople):
         self.__fileName = fileName
         self.__loadFromFile(fileName)
 
+    def deleteAllPeople(self):
+        super().deleteAllPeople()
+        self.loadToFile(self.getAllPeople())
+
+    def modifyPersonAddress(self, newAddress, idPerson):
+        super().modifyPersonAddress(newAddress, idPerson)
+        self.loadToFile(super().getAllPeople())
+
+    def modifyPersonName(self, newName, idPerson):
+        super().modifyPersonName(newName, idPerson)
+        self.loadToFile(self.getAllPeople())
 
     def __loadFromFile(self, fileName):
         fileText = ReadFromFile(fileName)
@@ -30,12 +41,12 @@ class FileRepoPeople(InMemoryRepositoryPeople):
 
     def addPerson(self, person):
         InMemoryRepositoryPeople.addPerson(self, person)
-        self.__loadToFile(InMemoryRepositoryPeople.getAllPeople(self))
+        self.loadToFile(InMemoryRepositoryPeople.getAllPeople(self))
             # addToFile
 
         #TODO -> Add new person to file
 
-    def __loadToFile(self, peopleList):
+    def loadToFile(self, peopleList):
         f = open(self.__fileName, "w")
         for person in peopleList:
             stringToWrite = self.__parsePersonIntoTextLine(person)
@@ -54,7 +65,7 @@ class FileRepoPeople(InMemoryRepositoryPeople):
     def deletePerson(self, personID):
         InMemoryRepositoryPeople.deletePerson(self, personID)
         peopleList = InMemoryRepositoryPeople.getAllPeople(self)
-        self.__loadToFile(peopleList)
+        self.loadToFile(peopleList)
     def __save(self, peopleList):
         for people in peopleList:
             InMemoryRepositoryPeople.addPerson(self, people)

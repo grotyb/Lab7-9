@@ -5,12 +5,38 @@ class UserInput:
     def __init__(self):
         pass
 
+    def citireNumarDePersoaneDeAdaugatRandom(self):
+        try:
+            userInput = int(input("Cate persoane doriti sa adaugati: "))
+            return userInput
+        except:
+            print("Introduceti un numar valid")
+
+    def citireNumarDeEvenimenteDeAdaugatRandom(self):
+        try:
+            userInput = int(input("Cate evenimente doriti sa adaugati: "))
+            return userInput
+        except:
+            print("Introduceti un numar valid")
+    def citireTastaMeniuModificariPeroana(self):
+        return self.__readUserInput(2, 1)
+
+    def citireTastaMeniuModificariEvenimente(self):
+        return self.__readUserInput(3, 1)
+
+    def citireNumeNou(self):
+        newName = input("Intorduceti numele nou dorit: ")
+        return newName
+
+    def citireAdresaNoua(self):
+        newAddress = input('Introduceti noua adresa: ')
+        return newAddress
     def __citireTastaMeniuPrincipal(self):
         """
         Citeste o valoare din intervalul [1,4], numar intreg, altfel va da un ValueError
         :return:
         """
-        return self.__readUserInput(4, 1)
+        return self.__readUserInput(6, 1)
 
     def __citireTastaAditionalaMeniuGesiuni(self):
         """
@@ -52,11 +78,11 @@ class UserInput:
         :return: Datetime datetime object
         """
         id = input("Introduceti IDul dorit: ")
-        dataAndHour = self.__citireData()
+        dataAndHour = self.__citireDataSiOra()
         desc = input("Introduceti descrierea evenimentului: ")
         return {'id': id, 'date': dataAndHour, 'description': desc}
 
-    def __citireOra(self):
+    def citireOra(self):
         """
         Citeste o ora in format hh:mm
         :return: ora ca intreg pozitiv din intervalul [0,24] si minutele intregi pozitivi din intervalul [0,59]
@@ -70,29 +96,39 @@ class UserInput:
                 raise Exception("Invalid Hour")
             if minutes < 0 or minutes >= 60:
                 raise Exception("Invalid Minutes")
-            return hour, minutes
+            return {'ora': hour, 'minute': minutes}
         except Exception as ex:
             print(ex)
-    def __citireData(self):
+
+    def __citireDataSiOra(self):
+        dataCitita = self.citireData()
+        oraCitita = self.citireOra()
+        date = datetime.datetime(dataCitita['an'], dataCitita['luna'], dataCitita['zi'], oraCitita['ora'], oraCitita['minute'])
+    def citireData(self):
         try:
             an = int(input("Introduceti anul in care va avea loc evenimentul: "))
             luna = int(input("Introduceti luna in care va avea loc evenimentul: "))
             zi = int(input("Introduceti ziua in care va avea loc evenimentul: "))
-            ora = self.__citireOra()
-            date = datetime.datetime(an, luna, zi, ora[0], ora[1])
-            return date
+            return {'an' : an, 'luna':  luna, 'zi': zi}
         except:
             print("Enter a valid value")
-    def readIDForDeletionPerson(self):
+    def readIDForPerson(self):
         try:
-            id = int(input("introduceti IDul pe care doriti sa o stergeti: "))
+            id = int(input("introduceti IDul dorit: "))
             return id
         except:
             print("Invalid id")
 
-    def readIDForDeletionEvent(self):
-        id = input("introduceti IDul pe care doriti sa o stergeti: ")
+    def readIDForEvent(self):
+        id = input("introduceti IDul dorit: ")
         return id
+
+    def readEventDescription(self):
+        desc = input("Descriere: ")
+        return desc
+
+    def citireTastaCautari(self):
+        return self.__readUserInput(2, 1)
 
     def __readUserInput(self, maxInput, lowerBoundInput):
         """
