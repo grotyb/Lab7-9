@@ -3,7 +3,7 @@ from UI.handleUserInput import UserInput
 from Domain.person import Person
 from Domain.event import Event
 class UI(Menu, UserInput):
-    def __init__(self, servicePeople, serviceEvents):
+    def __init__(self, servicePeople, serviceEvents, serviceParticipari):
         """
         A class that handles all the UI for the app
         :param repositoryPeople: A repository for performing operations on people
@@ -13,6 +13,7 @@ class UI(Menu, UserInput):
         UserInput.__init__(self)
         self.__servicePeople = servicePeople
         self.__serviceEvents = serviceEvents
+        self.__serviceParticipari = serviceParticipari
 
     def __redirectionareInSubmeniuAles(self, submeniu):
         """
@@ -32,6 +33,32 @@ class UI(Menu, UserInput):
             self.__adaugariRandomPeople()
         elif submeniu == 6:
             self.__adaugariRandomEvents()
+        elif submeniu == 7:
+            self.__adaugaParticipare()
+        elif submeniu == 8:
+            self.__rapoarte()
+
+    def __rapoarte(self):
+        self.afisareMeniuRapoarte()
+        tastaUser = self.citireTastaRapoarte()
+        if tastaUser == 1:
+            idPers = self.citireIDPersoana()
+            if idPers != None:
+                self.__serviceParticipari.listaEvenimentePtPersoana(idPers)
+        elif tastaUser == 2:
+            self.__serviceParticipari.raportNumarPersoaneLaEveniment()
+        elif tastaUser == 3:
+            self.__serviceParticipari.evenimenteCuCeiMaiMultiParticipanti()
+        elif tastaUser == 4:
+            self.__serviceEvents.evenimenteDinLunaCurenta()
+
+
+
+
+    def __adaugaParticipare(self):
+        dateParticipare = self.citireDateParticipare()
+        self.__serviceParticipari.inscrierePersoanaLaEveniment(dateParticipare['idPerson'], dateParticipare['idEvent'])
+
 
     def __adaugariRandomEvents(self):
         numarEvenimenteDeAdaugat = self.citireNumarDeEvenimenteDeAdaugatRandom()

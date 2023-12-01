@@ -13,6 +13,14 @@ class Menu:
         print("Apasati tasta 4 pentru Rapoarte")
         print("Apasati tasta 5 pentru a adauga un numar dat de studenti(Initializati cu valori aleatorii)")
         print("Apasati tasta 6 pentru a adauga un numar dat de evenimente(Initializati cu valori aleatorii)")
+        print("Apasati tasta 7 pentru a inscrie o persoana la un eveniment")
+        print("Apasati tasta 8 pentru a accesa meniul rapoarte")
+
+    def afisareMeniuRapoarte(self):
+        print("Apasati tasta 1 pentru a afisa lista de evenimente la care participă o persoană ordonat alfabetic după descriere, după dată")
+        print("Apasati tasta 2 pentru a afisa persoanele participante la cele mai multe evenimente")
+        print("Apasati tasta 3 a afisa primele 20% evenimente cu cei mai mulți participanți (descriere, număr participanți)")
+        print("Apsati tasta 4 pentru a afisa evenimentele din luna curenta")
 
     def ___afisareMeniuGestiuniPersoane(self):
         print("Apasati tasta 1 pentru a adauga o persoana")

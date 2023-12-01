@@ -22,6 +22,8 @@ class InMemoryRepositoryEvents:
     def modifyEventDescription(self, idEvent, newDescription):
         self.__eventsList[idEvent].setDescription(newDescription)
 
+    def find(self, idEvent):
+        return self.__eventsList.get(idEvent)
 
     def size(self):
         return len(self.__eventsList)

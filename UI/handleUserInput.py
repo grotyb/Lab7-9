@@ -36,7 +36,7 @@ class UserInput:
         Citeste o valoare din intervalul [1,4], numar intreg, altfel va da un ValueError
         :return:
         """
-        return self.__readUserInput(6, 1)
+        return self.__readUserInput(8, 1)
 
     def __citireTastaAditionalaMeniuGesiuni(self):
         """
@@ -130,6 +130,24 @@ class UserInput:
     def citireTastaCautari(self):
         return self.__readUserInput(2, 1)
 
+    def citireTastaRapoarte(self):
+        return self.__readUserInput(4, 1)
+    def citireDateParticipare(self):
+        try:
+            personID = int(input("Introduceti IDul persoanei pe care doriti sa o inscrieti la un eveniment:"))
+            eventID = input("Introduceti IDul evenimentului la care doriti sa participe: ")
+            return {'idPerson': personID, 'idEvent': eventID}
+        except:
+            print("person ID mut be an int")
+
+
+    def citireIDPersoana(self):
+        try:
+            id = int(input("Introuceti IDul persoanei: "))
+            return id
+        except:
+            print("Id mut be an integer")
+            return None
     def __readUserInput(self, maxInput, lowerBoundInput):
         """
         A function that prompts the user to input a value and validates that it is an int and that it is contained between the lower and upper bound

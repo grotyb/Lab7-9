@@ -66,6 +66,32 @@ class EventService:
                 return True
         return False
 
+    def evenimenteDinLunaCurenta(self):
+        lunaCurenta = datetime.datetime.now().month
+        anCurent = datetime.datetime.now().year
+        listaEvenimenteLunaCurenta = []
+        listaEvenimente = self.__repo.getAllEvents()
+        for event in listaEvenimente:
+            dataEveniment = event.getDataEvent()
+            if dataEveniment.month == lunaCurenta and dataEveniment.year == anCurent:
+                listaEvenimenteLunaCurenta.append(event)
+        #sortare dupa data
+        listaEvenimenteLunaCurenta = sorted(listaEvenimenteLunaCurenta, key=lambda x:(x.getDataEvent().year, x.getDataEvent().month, x.getDataEvent().day, ), reverse=True)
+        for eIndex in range(len(listaEvenimenteLunaCurenta)):
+            for jIndex in range(eIndex+1, len(listaEvenimenteLunaCurenta)):
+                if (listaEvenimenteLunaCurenta[eIndex].getDataEvent().year == listaEvenimenteLunaCurenta[jIndex].getDataEvent().year) and (listaEvenimenteLunaCurenta[eIndex].getDataEvent().month == listaEvenimenteLunaCurenta[jIndex].getDataEvent().month) and (listaEvenimenteLunaCurenta[eIndex].getDataEvent().day == listaEvenimenteLunaCurenta[jIndex].getDataEvent().day):
+                    if listaEvenimenteLunaCurenta[eIndex].getDataEvent().hour > listaEvenimenteLunaCurenta[jIndex].getDataEvent().hour:
+                        temp = listaEvenimenteLunaCurenta[eIndex]
+                        listaEvenimenteLunaCurenta[eIndex] = listaEvenimenteLunaCurenta[jIndex]
+                        listaEvenimenteLunaCurenta[jIndex] = temp
+                    elif (listaEvenimenteLunaCurenta[eIndex].getDataEvent().hour == listaEvenimenteLunaCurenta[jIndex].getDataEvent().hour) and (listaEvenimenteLunaCurenta[eIndex].getDataEvent().minute > listaEvenimenteLunaCurenta[jIndex].getDataEvent().minute):
+                        temp = listaEvenimenteLunaCurenta[eIndex]
+                        listaEvenimenteLunaCurenta[eIndex] = listaEvenimenteLunaCurenta[jIndex]
+                        listaEvenimenteLunaCurenta[jIndex] = temp
+
+        for event in listaEvenimenteLunaCurenta:
+            print(event.getIDEvent(), event.getEventDescription(), event.getDataEvent())
+
     def addRandomEvents(self, nrOfEvents):
         i = 0
         while i < nrOfEvents:
@@ -100,5 +126,7 @@ def testEventService():
     srv.addEvent(testEvent.getIDEvent(), testEvent.getDataEvent(), testEvent.getEventDescription())
     assert srv.eventDoesExist("1") == True
     assert srv.eventDoesExist("2") == False
+
+
 
 # testEventService()
